@@ -1,0 +1,9 @@
+discord.py 
+python-decouple 
+loguru
+toml 
+python-slugify
+sentry-sdk
+httpx
+pytz
+python-telegram-bot
