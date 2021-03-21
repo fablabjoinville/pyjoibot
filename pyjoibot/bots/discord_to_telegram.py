@@ -28,7 +28,7 @@ async def on_message(message):
         await message.channel.send("To vivo aina!")
 
     logger.debug(message)
-    bot_telegram.send_message(chat_id=TELEGRAM_GROUP_ID, text='Bot Joi!!')
+    # bot_telegram.send_message(chat_id=TELEGRAM_GROUP_ID, text='Bot Joi!!')
 
     await bot_discord.process_commands(message)
 
