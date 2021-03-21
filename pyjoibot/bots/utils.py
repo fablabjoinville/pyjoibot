@@ -1,12 +1,8 @@
 import asyncio
 import functools
-import logging
+
 from datetime import datetime, timedelta
-
-import discord
 from loguru import logger
-
-from . import config
 
 
 def cmdlog(f):

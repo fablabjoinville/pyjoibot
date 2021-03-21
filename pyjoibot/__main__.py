@@ -1,6 +1,7 @@
 from loguru import logger
 
-from pyjoibot import discord
+from pyjoibot.bots import discord_to_telegram
+
 
 if __name__ == "__main__":
-    discord.bot.run(discord.config.TOKEN)
+    discord_to_telegram.run()
