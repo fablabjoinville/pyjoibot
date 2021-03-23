@@ -1,8 +1,7 @@
 import toml
-
 from decouple import config
 
-
 DISCORD_TOKEN = config('DISCORD_TOKEN')
+DISCORD_CHANNEL_FROM = config('DISCORD_CHANNEL_FROM')
 TELEGRAM_TOKEN = config('TELEGRAM_TOKEN')
-TELEGRAM_GROUP_ID = config('TELEGRAM_GROUP_ID')
+TELEGRAM_GROUP_ID = config('TELEGRAM_GROUP_TO')
