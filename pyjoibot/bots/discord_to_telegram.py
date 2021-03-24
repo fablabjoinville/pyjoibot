@@ -21,25 +21,23 @@ bot_telegram = telegram.Bot(token=TELEGRAM_TOKEN)
 async def on_message(message):
 
     if message.channel.name in DISCORD_CHANNEL_FROM.split(","):
-        logger.debug(f"## Message {message}")
-        logger.debug(f"## Telegram Groups {type(TELEGRAM_GROUP_ID)}")
-
-        send_message = """ 
-        ## Nova mensagem no canal do Discord:
-        {content}  
-        --  Enviado por: {author} do canal {channel} do servidor {server}
-        --  Para fazer parte do servidor acesse: https://discord.gg/F7WWtt49hh
-
-        """.format(
-            content=message.content,
-            author=message.author.name,
-            channel=message.channel.name,
-            server=message.guild.name,
+        header = f"*\#\# Mensagem do Discord do canal _\#{message.channel.name}_ no servidor _{message.guild.name}_:*\n\n"
+        footer = (
+            f"`enviado por: {message.author.name}` \n\n Faça parte do servidor: [link](https://discord.gg/F7WWtt49hh)\."
+            ""
         )
-
         for group in TELEGRAM_GROUP_ID.split(","):
-            logger.debug(f"## Group {message}")
-            bot_telegram.send_message(chat_id=group, text=send_message)
+            logger.debug(
+                f"## Enviando mensagem para de Discord: {message.channel.name} para Telegram: {group}"
+            )
+
+            bot_telegram.send_message(
+                chat_id=group, text=header, parse_mode=telegram.ParseMode.MARKDOWN_V2
+            )
+            bot_telegram.send_message(chat_id=group, text=message.content)
+            bot_telegram.send_message(
+                chat_id=group, text=footer, parse_mode=telegram.ParseMode.MARKDOWN_V2
+            )
 
     await bot_discord.process_commands(message)
 
