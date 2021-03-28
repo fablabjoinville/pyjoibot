@@ -9,12 +9,8 @@ from discord.ext.tasks import loop
 from loguru import logger
 from slugify import slugify
 
-from .config import (
-    DISCORD_CHANNEL_FROM,
-    DISCORD_TOKEN,
-    TELEGRAM_GROUP_ID,
-    TELEGRAM_TOKEN,
-)
+from .config import (DISCORD_CHANNELS_FROM, DISCORD_INVITE_LINK_ID,
+                     DISCORD_TOKEN, TELEGRAM_GROUPS_TO, TELEGRAM_TOKEN)
 from .utils import cmdlog
 
 bot_discord = Bot(command_prefix="!", intents=discord.Intents.all())
@@ -24,8 +20,8 @@ bot_telegram = telegram.Bot(token=TELEGRAM_TOKEN)
 @bot_discord.event
 async def on_message(message):
 
-    if message.channel.name in DISCORD_CHANNEL_FROM.split(","):
-        for group in TELEGRAM_GROUP_ID.split(","):
+    if message.channel.name in DISCORD_CHANNELS_FROM.split(","):
+        for group in TELEGRAM_GROUPS_TO.split(","):
             logger.debug(
                 f"## Enviando mensagem do Discord: {message.channel.name} para Telegram: {group}"
             )
@@ -95,7 +91,7 @@ def send_message_telegram(
 
     if footer:
         footer = (
-            f"`enviado por: {discord_message.author.name}` \n\n Faça parte do servidor: [link](https://discord.gg/F7WWtt49hh)\."
+            f"`enviado por: {discord_message.author.name}` \n\n Faça parte do servidor: [link](https://discord.gg/{DISCORD_INVITE_LINK_ID})\."
             ""
         )
         bot_telegram.send_message(
