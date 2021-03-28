@@ -1,16 +1,15 @@
-import asyncio
-from collections import defaultdict
-from typing import Optional
-
 import discord
 import telegram
 from discord.ext.commands import Bot
-from discord.ext.tasks import loop
 from loguru import logger
-from slugify import slugify
 
-from .config import (DISCORD_CHANNELS_FROM, DISCORD_INVITE_LINK_ID,
-                     DISCORD_TOKEN, TELEGRAM_GROUPS_TO, TELEGRAM_TOKEN)
+from .config import (
+    DISCORD_CHANNELS_FROM,
+    DISCORD_INVITE_LINK_ID,
+    DISCORD_TOKEN,
+    TELEGRAM_GROUPS_TO,
+    TELEGRAM_TOKEN,
+)
 from .utils import cmdlog
 
 bot_discord = Bot(command_prefix="!", intents=discord.Intents.all())
@@ -31,17 +30,11 @@ async def on_message(message):
     await bot_discord.process_commands(message)
 
 
-@bot_discord.event
-async def on_error(event, *args, **kwargs):
-    """Don't ignore the error, causing Sentry to capture it."""
-    raise
-
-
 @bot_discord.command()
 @cmdlog
 async def echo(ctx, *args):
-    msg = " ".join(args)
-    await ctx.channel.send(msg)
+    message = " ".join(args)
+    await ctx.channel.send(message)
 
 
 @bot_discord.command()
