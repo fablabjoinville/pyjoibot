@@ -1,11 +1,6 @@
-discord.py 
-python-decouple 
-loguru
-toml 
-python-slugify
-sentry-sdk
-httpx
-pytz
-python-telegram-bot
-black
-isort
+black==20.8b1
+discord.py==1.6.0
+isort==5.8.0
+loguru==0.5.3
+python-telegram-bot==13.4.1
+python-decouple==3.4
