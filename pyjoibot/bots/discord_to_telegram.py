@@ -3,13 +3,8 @@ import telegram
 from discord.ext.commands import Bot
 from loguru import logger
 
-from .config import (
-    DISCORD_CHANNELS_FROM,
-    DISCORD_INVITE_LINK_ID,
-    DISCORD_TOKEN,
-    TELEGRAM_GROUPS_TO,
-    TELEGRAM_TOKEN,
-)
+from .config import (DISCORD_CHANNELS_FROM, DISCORD_INVITE_LINK_ID,
+                     DISCORD_TOKEN, TELEGRAM_GROUPS_TO, TELEGRAM_TOKEN)
 from .utils import cmdlog
 
 bot_discord = Bot(command_prefix="!", intents=discord.Intents.all())
@@ -73,10 +68,10 @@ def send_message_telegram(
     telegram_group, discord_message, header=False, footer=False
 ) -> None:
     if header:
-        header = f"*\#\# Mensagem do Discord do canal _\#{discord_message.channel.name}_ no servidor _{discord_message.guild.name}_:*\n\n"
+        header = f"*\#\# Mensagem do Discord do canal _{discord_message.channel.name}_ no servidor _{discord_message.guild.name}_:*\n\n"
         bot_telegram.send_message(
             chat_id=telegram_group,
-            text=header,
+            text=header.replace('-','\-'),
             parse_mode=telegram.ParseMode.MARKDOWN_V2,
         )
 
@@ -89,7 +84,7 @@ def send_message_telegram(
         )
         bot_telegram.send_message(
             chat_id=telegram_group,
-            text=footer,
+            text=footer.replace('-','\-'),
             parse_mode=telegram.ParseMode.MARKDOWN_V2,
         )
 
